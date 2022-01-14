@@ -19,3 +19,20 @@ class FrameworkClient(discord.Client):
     _shutdown_handlers: List[Callable[[], None]] = []
     _message_handlers: List[Callable[[discord.Message], None]] = []
     _member_join_handlers: List[Callable[[discord.Member], None]] = []
+    _member_remove_handlers: List[Callable[[discord.Member], None]] = []
+    _reaction_add_handlers: List[Callable[[discord.Reaction, Union[discord.User, discord.Member]], None]] = []
+    _reaction_remove_handlers: List[Callable[[discord.Reaction, Union[discord.User, discord.Member]], None]] = []
+
+    _command_lookup: Dict[str, Callable[[discord.Message, str], None]] = {}
+
+    _basic_help: Dict[str, str] = {}
+
+    _long_help: Dict[str, Dict[str, str]] = {}
+
+    unknown_command = "`Bad command or filename`\n(See bot help for help)"
+
+    cmd_aliases: Dict[str, List[str]] = {}
+
+    alias_lookup: Dict[str, str] = {}
+
+    bot_name = config.bot_name
